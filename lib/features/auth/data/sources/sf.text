@@ -1,0 +1,70 @@
+lib/
+├── core/
+│   ├── config/
+│   │   ├── app_config.dart
+│   │   └── env.dart
+│   │
+│   ├── error/
+│   │   ├── api_exception.dart
+│   │   ├── error_mapper.dart
+│   │   └── error_response.dart
+│   │
+│   ├── network/
+│   │   ├── dio_client.dart
+│   │   ├── api_response.dart
+│   │   └── interceptors/
+│   │       ├── auth_interceptor.dart
+│   │       ├── error_interceptor.dart
+│   │       └── logging_interceptor.dart
+│   │
+│   ├── utils/
+│   │   ├── result.dart
+│   │   └── extensions.dart
+│   │
+│   └── loading/
+│       └── loading_controller.dart
+│
+├── features/
+│   └── auth/
+│       ├── data/
+│       │   ├── models/
+│       │   │   ├── login_request.dart
+│       │   │   ├── login_response.dart
+│       │   │   └── user_model.dart
+│       │   │
+│       │   ├── sources/
+│       │   │   └── auth_api_service.dart
+│       │   │
+│       │   ├── mappers/
+│       │   │   └── user_mapper.dart
+│       │   │
+│       │   └── repositories/
+│       │       └── auth_repository_impl.dart
+│       │
+│       ├── domain/
+│       │   ├── entities/
+│       │   │   └── user.dart
+│       │   │
+│       │   ├── repositories/
+│       │   │   └── auth_repository.dart
+│       │   │
+│       │   └── usecases/
+│       │       └── login_usecase.dart
+│       │
+│       └── presentation/
+│           ├── controllers/
+│           │   └── auth_controller.dart
+│           │
+│           ├── state/
+│           │   └── auth_state.dart
+│           │
+│           └── pages/
+│               └── login_page.dart
+│
+├── routes/
+│   └── app_routes.dart
+│
+├── di/
+│   └── injector.dart
+│
+└── main.dart
