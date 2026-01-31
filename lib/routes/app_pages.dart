@@ -1,3 +1,5 @@
+import 'package:darul_rahman_app/features/member/presentation/bindings/member_binding.dart';
+import 'package:darul_rahman_app/features/member/presentation/pages/member_page.dart';
 import 'package:get/get.dart';
 
 import 'package:darul_rahman_app/core/middleware/auth_middleware.dart';
@@ -30,5 +32,11 @@ class AppPages {
       page: () => MerchantFormPage(),
       binding: MerchantBinding(),
     ),
+
+    // Member
+    GetPage(
+        name: AppRoutes.member,
+        page: () => const MemberPage(),
+        binding: MemberBinding())
   ];
 }

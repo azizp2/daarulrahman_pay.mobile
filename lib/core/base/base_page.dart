@@ -30,24 +30,27 @@ abstract class BasePage<T extends BaseController> extends GetView<T> {
             Obx(() {
               if (controller.errorMessage.isEmpty) return const SizedBox();
 
-              return Container(
-                width: double.infinity,
-                margin: const EdgeInsets.only(bottom: 16),
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
-                decoration: BoxDecoration(
-                  color: Colors.red.shade50,
-                  borderRadius: BorderRadius.circular(10),
-                  border: const Border(
-                    left: BorderSide(color: AppColors.danger, width: 4),
+              return Padding(
+                padding: const EdgeInsets.all(12),
+                child: Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.red.shade50,
+                    borderRadius: BorderRadius.circular(10),
+                    border: const Border(
+                      left: BorderSide(color: AppColors.danger, width: 4),
+                    ),
                   ),
-                ),
-                child: Text(
-                  controller.errorMessage.value,
-                  style: const TextStyle(
-                    color: AppColors.danger,
-                    fontSize: 13,
-                    fontWeight: FontWeight.w500,
+                  child: Text(
+                    controller.errorMessage.value,
+                    style: const TextStyle(
+                      color: AppColors.danger,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               );

@@ -140,7 +140,7 @@ class HomePage extends StatelessWidget {
                       icon: Icons.people,
                       title: 'Member',
                       subtitle: 'Manage member data',
-                      onTap: () => Get.toNamed('/member'),
+                      onTap: () => Get.toNamed(AppRoutes.member),
                     ),
                     const Divider(height: 1),
                     _MenuItem(

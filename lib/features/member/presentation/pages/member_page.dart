@@ -1,14 +1,12 @@
 import 'package:darul_rahman_app/core/base/base_page.dart';
-import 'package:darul_rahman_app/core/helpers/dialog_helper.dart';
+import 'package:darul_rahman_app/features/member/domain/entities/member.dart';
+import 'package:darul_rahman_app/features/member/presentation/controllers/member_controller.dart';
 import 'package:darul_rahman_app/theme/app_colors.dart';
-import 'package:darul_rahman_app/features/merchant/domain/entities/merchant.dart';
-import 'package:darul_rahman_app/features/merchant/presentation/controllers/merchant_controller.dart';
-import 'package:darul_rahman_app/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class MerchantPage extends BasePage<MerchantController> {
-  const MerchantPage({super.key});
+class MemberPage extends BasePage<MemberController> {
+  const MemberPage({super.key});
 
   @override
   PreferredSizeWidget buildAppBar(BuildContext context) {
@@ -18,12 +16,12 @@ class MerchantPage extends BasePage<MerchantController> {
       titleTextStyle:
           const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
       backgroundColor: AppColors.primary,
-      title: const Text('Merchant Page'),
+      title: const Text('Members'),
       actions: [
         IconButton(
           color: Colors.white,
-          onPressed: () async {
-            await controller.getMerchants();
+          onPressed: () {
+            controller.getMembers();
           },
           icon: const Icon(
             Icons.restart_alt_outlined,
@@ -38,10 +36,10 @@ class MerchantPage extends BasePage<MerchantController> {
     return FloatingActionButton(
       backgroundColor: AppColors.primary,
       onPressed: () {
-        controller.resetForm();
-        Get.offNamed(AppRoutes.fromMerchant);
+        // controller.resetForm();
+        // Get.toNamed(AppRoutes.fromMerchant);
       },
-      child: Icon(Icons.add),
+      child: const Icon(Icons.add),
       foregroundColor: Colors.white,
     );
   }
@@ -53,7 +51,7 @@ class MerchantPage extends BasePage<MerchantController> {
         padding: const EdgeInsets.all(12),
         child: Column(
           children: [
-            if (controller.merchants.isNotEmpty) ...[
+            if (controller.members.isNotEmpty) ...[
               const TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -63,7 +61,7 @@ class MerchantPage extends BasePage<MerchantController> {
             ],
             const SizedBox(height: 16),
             Expanded(
-              child: controller.merchants.isEmpty
+              child: controller.members.isEmpty
                   ? const Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -73,7 +71,7 @@ class MerchantPage extends BasePage<MerchantController> {
                             size: 100,
                             color: AppColors.primary,
                           ),
-                          const SizedBox(
+                          SizedBox(
                             height: 14,
                           ),
                           Text(
@@ -87,14 +85,13 @@ class MerchantPage extends BasePage<MerchantController> {
                       ),
                     )
                   : ListView.builder(
-                      itemCount: controller.merchants.length,
+                      itemCount: controller.members.length,
                       shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
-                        return _merchantItem(
-                            controller.merchants[index].name as String, () {
+                        return _listItem(
+                            controller.members[index].name as String, () {
                           _showMerchantDetail(
-                              context, controller.merchants[index]);
+                              context, controller.members[index]);
                         });
                       }),
             )
@@ -104,7 +101,7 @@ class MerchantPage extends BasePage<MerchantController> {
     });
   }
 
-  Widget _merchantItem(String title, VoidCallback? onTap) {
+  Widget _listItem(String title, VoidCallback? onTap) {
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       decoration: BoxDecoration(
@@ -138,7 +135,7 @@ class MerchantPage extends BasePage<MerchantController> {
     );
   }
 
-  void _showMerchantDetail(BuildContext context, Merchant merchant) {
+  void _showMerchantDetail(BuildContext context, Member member) {
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -167,28 +164,25 @@ class MerchantPage extends BasePage<MerchantController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _getText("Merchant Name",
-                            merchant.name.toString().capitalize),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        _getText("Email", merchant.email.toString()),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        _getText("Phone Number", merchant.phone.toString()),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        _getText("Address", merchant.address.toString()),
-                        const SizedBox(
-                          height: 16,
-                        ),
                         _getText(
-                            "Is Active",
-                            merchant.isActive == true
-                                ? "Active"
-                                : "Not Active"),
+                            "Merchant Name", member.name.toString().capitalize),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        _getText("Email", "Test"),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        _getText("Phone Number", "Test"),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        _getText("Address", "Test"),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        _getText("Is Active",
+                            member.isActive == true ? "Active" : "Not Active"),
                         const SizedBox(
                           height: 16,
                         ),
@@ -198,10 +192,10 @@ class MerchantPage extends BasePage<MerchantController> {
                             Expanded(
                               child: ElevatedButton(
                                   onPressed: () async {
-                                    await controller
-                                        .getMerchantById(merchant.id!);
-                                    Get.back();
-                                    Get.toNamed(AppRoutes.fromMerchant);
+                                    // await controller
+                                    //     .getMerchantById(merchant.id!);
+                                    // Get.back();
+                                    // Get.toNamed(AppRoutes.fromMerchant);
                                   },
                                   child: const Icon(Icons.edit)),
                             ),
@@ -211,13 +205,13 @@ class MerchantPage extends BasePage<MerchantController> {
                             Expanded(
                               child: ElevatedButton(
                                   onPressed: () async {
-                                    final delete = await DialogHelper.confirm(
-                                        message:
-                                            "Are you sure delete this data ??");
-                                    if (delete) {
-                                      Get.back();
-                                      await controller.remove(merchant.id!);
-                                    }
+                                    // final delete = await DialogHelper.confirm(
+                                    //     message:
+                                    //         "Are you sure delete this data ??");
+                                    // if (delete) {
+                                    //   // Get.back();
+                                    //   // await controller.remove(merchant.id!);
+                                    // }
                                   },
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: AppColors.danger),

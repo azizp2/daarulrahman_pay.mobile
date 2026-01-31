@@ -14,7 +14,7 @@ class MerchantRepoImpl implements MerchantRepo {
   Future<Result<List<Merchant>>> getAll() async {
     try {
       final response = await api.getAll();
-      return Success(response.data);
+      return Success(response.data!);
     } catch (e) {
       return Failure(ErrorMapper.map(e));
     }
@@ -34,7 +34,7 @@ class MerchantRepoImpl implements MerchantRepo {
   Future<Result<Merchant>> getById(int id) async {
     try {
       final response = await api.getById(id);
-      return Success(response.data);
+      return Success(response.data!);
     } catch (e) {
       return Failure(ErrorMapper.map(e));
     }

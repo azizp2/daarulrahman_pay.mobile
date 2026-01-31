@@ -14,7 +14,7 @@ class AuthRepoImpl implements AuthRepo {
   Future<Result<LoginResponse>> login(LoginRequest request) async {
     try {
       final response = await api.login(request);
-      return Success(response.data);
+      return Success(response.data!);
     } catch (e) {
       return Failure(ErrorMapper.map(e));
     }
