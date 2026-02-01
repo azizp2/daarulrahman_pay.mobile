@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 class MemberBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<MemberController>(() => MemberController(Get.find()),
+    Get.lazyPut<MemberController>(
+        () => MemberController(Get.find(), Get.find()),
         fenix: true);
   }
 }

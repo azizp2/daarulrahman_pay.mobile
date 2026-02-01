@@ -1,4 +1,5 @@
 import 'package:darul_rahman_app/features/member/presentation/bindings/member_binding.dart';
+import 'package:darul_rahman_app/features/member/presentation/pages/member_form_page.dart';
 import 'package:darul_rahman_app/features/member/presentation/pages/member_page.dart';
 import 'package:get/get.dart';
 
@@ -37,6 +38,10 @@ class AppPages {
     GetPage(
         name: AppRoutes.member,
         page: () => const MemberPage(),
-        binding: MemberBinding())
+        binding: MemberBinding()),
+    GetPage(
+        name: AppRoutes.memberForm,
+        page: () => MemberFormPage(),
+        binding: MemberBinding()),
   ];
 }

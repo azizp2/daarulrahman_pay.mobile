@@ -1,6 +1,8 @@
 import 'package:darul_rahman_app/core/base/base_page.dart';
+import 'package:darul_rahman_app/core/helpers/date_time_helper.dart';
 import 'package:darul_rahman_app/features/member/domain/entities/member.dart';
 import 'package:darul_rahman_app/features/member/presentation/controllers/member_controller.dart';
+import 'package:darul_rahman_app/routes/app_routes.dart';
 import 'package:darul_rahman_app/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -36,8 +38,8 @@ class MemberPage extends BasePage<MemberController> {
     return FloatingActionButton(
       backgroundColor: AppColors.primary,
       onPressed: () {
-        // controller.resetForm();
-        // Get.toNamed(AppRoutes.fromMerchant);
+        controller.resetForm();
+        Get.offNamed(AppRoutes.memberForm);
       },
       child: const Icon(Icons.add),
       foregroundColor: Colors.white,
@@ -151,7 +153,7 @@ class MemberPage extends BasePage<MemberController> {
                 children: [
                   const Center(
                     child: Text(
-                      "Detail Merchant",
+                      "Detail Member",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
@@ -164,20 +166,21 @@ class MemberPage extends BasePage<MemberController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _getText(
-                            "Merchant Name", member.name.toString().capitalize),
+                        _getText("NIS", member.nis.toString()),
                         const SizedBox(
                           height: 16,
                         ),
-                        _getText("Email", "Test"),
+                        _getText("Name  ", member.name.toString().capitalize),
                         const SizedBox(
                           height: 16,
                         ),
-                        _getText("Phone Number", "Test"),
+                        _getText("Tempat Lahir",
+                            member.tempatLahir.toString().capitalize),
                         const SizedBox(
                           height: 16,
                         ),
-                        _getText("Address", "Test"),
+                        _getText("Tanggal Lahir",
+                            DateTimeHelper.format(member.tglLahir)),
                         const SizedBox(
                           height: 16,
                         ),
@@ -241,8 +244,10 @@ class MemberPage extends BasePage<MemberController> {
           height: 5,
         ),
         Text(
-          description?.isNotEmpty == true && description != 'null'
-              ? description!
+          description?.isNotEmpty == true &&
+                  description != 'Null' &&
+                  description != null
+              ? description
               : '',
           style: const TextStyle(
               fontSize: 14,

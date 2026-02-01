@@ -3,6 +3,7 @@ import 'package:darul_rahman_app/core/utils/result_utils.dart';
 import 'package:darul_rahman_app/features/member/data/sources/member_api_service.dart';
 import 'package:darul_rahman_app/features/member/domain/entities/member.dart';
 import 'package:darul_rahman_app/features/member/domain/repo/member_repo.dart';
+import 'package:darul_rahman_app/features/member/domain/usecases/params/member_request_param.dart';
 
 class MemberRepoImpl implements MemberRepo {
   final MemberApiService api;
@@ -10,9 +11,13 @@ class MemberRepoImpl implements MemberRepo {
   MemberRepoImpl(this.api);
 
   @override
-  Future<Result<void>> add(Map<String, dynamic> param) {
-    // TODO: implement add
-    throw UnimplementedError();
+  Future<Result<void>> add(MemberRequestParam param) async {
+    try {
+      await api.add(param);
+      return const Success(null);
+    } catch (e) {
+      return Failure(ErrorMapper.map(e));
+    }
   }
 
   @override

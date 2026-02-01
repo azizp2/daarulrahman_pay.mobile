@@ -1,6 +1,7 @@
 import 'package:darul_rahman_app/features/member/data/repo/member_repo_impl.dart';
 import 'package:darul_rahman_app/features/member/data/sources/member_api_service.dart';
 import 'package:darul_rahman_app/features/member/domain/repo/member_repo.dart';
+import 'package:darul_rahman_app/features/member/domain/usecases/add_member_usecase.dart';
 import 'package:darul_rahman_app/features/member/domain/usecases/get_member_usecase.dart';
 import 'package:darul_rahman_app/features/member/presentation/controllers/member_controller.dart';
 import 'package:darul_rahman_app/features/merchant/domain/usecases/remove_merchant_usercase.dart';
@@ -46,11 +47,12 @@ class Injector {
     Get.put(RemoveMerchantUsercase(Get.find()));
 
     Get.put(GetMemberUsecase(Get.find()));
+    Get.put(AddMemberUsecase(Get.find()));
 
     // Get.put(GetMemberUsecase(Get.find()));
 
     // 🟣 CONTROLLER GLOBAL
     Get.put(AuthController(Get.find()));
-    Get.put(MemberController(Get.find()));
+    Get.put(MemberController(Get.find(), Get.find()));
   }
 }

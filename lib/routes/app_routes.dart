@@ -10,4 +10,5 @@ class AppRoutes {
 
   // Member
   static const member = '/member';
+  static const memberForm = '/memberForm';
 }
