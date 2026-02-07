@@ -5,7 +5,8 @@ class MemberBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<MemberController>(
-        () => MemberController(Get.find(), Get.find()),
+        () => MemberController(
+            Get.find(), Get.find(), Get.find(), Get.find(), Get.find()),
         fenix: true);
   }
 }

@@ -7,6 +7,6 @@ abstract class MemberRepo {
   Future<Result<List<Member>>> getAll();
   Future<Result<Member>> getById(int id);
   Future<Result<void>> add(MemberRequestParam param);
-  Future<Result<void>> update(int id, Map<String, dynamic> param);
+  Future<Result<void>> update(int id, MemberRequestParam param);
   Future<Result<void>> remove(int id);
 }

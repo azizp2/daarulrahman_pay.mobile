@@ -31,20 +31,32 @@ class MemberRepoImpl implements MemberRepo {
   }
 
   @override
-  Future<Result<Member>> getById(int id) {
-    // TODO: implement getById
-    throw UnimplementedError();
+  Future<Result<Member>> getById(int id) async {
+    try {
+      final response = await api.getById(id);
+      return Success(response.data!);
+    } catch (e) {
+      return Failure(ErrorMapper.map(e));
+    }
   }
 
   @override
-  Future<Result<void>> remove(int id) {
-    // TODO: implement remove
-    throw UnimplementedError();
+  Future<Result<void>> remove(int id) async {
+    try {
+      await api.remove(id);
+      return const Success(null);
+    } catch (e) {
+      return Failure(ErrorMapper.map(e));
+    }
   }
 
   @override
-  Future<Result<void>> update(int id, Map<String, dynamic> param) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<Result<void>> update(int id, MemberRequestParam param) async {
+    try {
+      await api.update(id, param);
+      return const Success(null);
+    } catch (e) {
+      return Failure(ErrorMapper.map(e));
+    }
   }
 }

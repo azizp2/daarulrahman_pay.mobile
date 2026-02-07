@@ -1,9 +1,11 @@
 import 'package:darul_rahman_app/core/base/base_page.dart';
 import 'package:darul_rahman_app/core/helpers/date_time_helper.dart';
+import 'package:darul_rahman_app/core/helpers/dialog_helper.dart';
 import 'package:darul_rahman_app/features/member/domain/entities/member.dart';
 import 'package:darul_rahman_app/features/member/presentation/controllers/member_controller.dart';
 import 'package:darul_rahman_app/routes/app_routes.dart';
 import 'package:darul_rahman_app/theme/app_colors.dart';
+import 'package:darul_rahman_app/widgets/component/nfc_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,7 +41,7 @@ class MemberPage extends BasePage<MemberController> {
       backgroundColor: AppColors.primary,
       onPressed: () {
         controller.resetForm();
-        Get.offNamed(AppRoutes.memberForm);
+        Get.toNamed(AppRoutes.memberForm);
       },
       child: const Icon(Icons.add),
       foregroundColor: Colors.white,
@@ -141,93 +143,125 @@ class MemberPage extends BasePage<MemberController> {
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
+        showDragHandle: true,
         shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(16))),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
         builder: (_) {
-          return SizedBox(
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Center(
-                    child: Text(
-                      "Detail Member",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _getText("NIS", member.nis.toString()),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        _getText("Name  ", member.name.toString().capitalize),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        _getText("Tempat Lahir",
-                            member.tempatLahir.toString().capitalize),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        _getText("Tanggal Lahir",
-                            DateTimeHelper.format(member.tglLahir)),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        _getText("Is Active",
-                            member.isActive == true ? "Active" : "Not Active"),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: ElevatedButton(
-                                  onPressed: () async {
-                                    // await controller
-                                    //     .getMerchantById(merchant.id!);
-                                    // Get.back();
-                                    // Get.toNamed(AppRoutes.fromMerchant);
-                                  },
-                                  child: const Icon(Icons.edit)),
-                            ),
-                            const SizedBox(
-                              width: 12,
-                            ),
-                            Expanded(
-                              child: ElevatedButton(
-                                  onPressed: () async {
-                                    // final delete = await DialogHelper.confirm(
-                                    //     message:
-                                    //         "Are you sure delete this data ??");
-                                    // if (delete) {
-                                    //   // Get.back();
-                                    //   // await controller.remove(merchant.id!);
-                                    // }
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColors.danger),
-                                  child: const Icon(Icons.delete)),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                  )
-                ],
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Center(
+                child: Text(
+                  "Detail Member",
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
+              const SizedBox(
+                height: 16,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _getText("NIS", member.nis.toString()),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      _getText("Name  ", member.name.toString().capitalize),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      _getText("Tempat Lahir",
+                          member.tempatLahir.toString().capitalize),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      _getText("Tanggal Lahir",
+                          DateTimeHelper.format(member.tglLahir)),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      _getText("Is Active",
+                          member.isActive == true ? "Active" : "Not Active"),
+                      const Divider(
+                        color: Color.fromARGB(255, 66, 66, 66),
+                        thickness: 1,
+                      ),
+                      SizedBox(
+                        height: 130, // WAJIB untuk horizontal list
+                        child: ListView.separated(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 4,
+                          separatorBuilder: (_, __) =>
+                              const SizedBox(width: 12),
+                          itemBuilder: (context, index) {
+                            // final card = nfcCards[index];
+
+                            return SizedBox(
+                              width: MediaQuery.of(context).size.width - 100,
+                              child: const NfcCard(
+                                cardNumber: "AB-121-21.22",
+                                balance: 1000000,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                              child: OutlinedButton(
+                                  onPressed: () => {},
+                                  child: const Text('Add New'))),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                                onPressed: () async {
+                                  await controller.getbyId(member.id);
+                                  Get.back();
+                                  Get.toNamed(AppRoutes.memberForm);
+                                },
+                                child: const Icon(Icons.edit)),
+                          ),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          Expanded(
+                            child: ElevatedButton(
+                                onPressed: () async {
+                                  final delete = await DialogHelper.confirm(
+                                      message:
+                                          "Are you sure delete this data ??");
+                                  if (delete) {
+                                    Get.back();
+                                    await controller.remove(member.id);
+                                  }
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.danger),
+                                child: const Icon(Icons.delete)),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
           );
         });
   }
